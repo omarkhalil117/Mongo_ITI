@@ -8,6 +8,8 @@
 
 ![books Collection](./imgs/booksImport.png)
 
+## Result 
+![result](./imgs/4.png)
 
 ## Display number of products per category.
 
@@ -19,4 +21,45 @@
 
 ## Display user ahmed orders populated with product.
 
+### Query
+db.users.aggregate([
+  {
+    $match: {
+      name: "ahmed"
+    }
+  },
+  {
+    $lookup: {
+      from: "orders",
+      localField: "_id",
+      foreignField: "userId",
+      as: "UserOrder"
+    }
+  },
+  {
+    $unwind: "$UserOrder"
+  },
+  {
+    $unwind: "$UserOrder.productsIds"
+  },
+  {
+    $lookup: {
+      from: "products",
+      localField: "UserOrder.productsIds",
+      foreignField: "_id",
+      as: "UserOrder.productNames"
+    }
+  },
+  {
+    $group: {
+      _id: "$_id",
+      name: { $first: "$name" },
+      orders: { $push: "$UserOrder" } ,
+    }
+  },
+
+  
+])
+
+### Result
 ![Q3](./imgs/Q3.png)
