@@ -63,3 +63,15 @@ db.users.aggregate([
 
 ### Result
 ![Q3](./imgs/Q3.png)
+
+
+## Do aggregation queries that use multiple stages on books collection 
+
+## Ex1
+
+![EX1](./imgs/Ex1.png)
+
+## Ex2
+
+![EX2](./imgs/Ex2.png)
+
